@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mizan Sheikh — Electrical Engineer &amp; Automation Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --panel:#141414;
+    --panel-2:#1b1b1b;
+    --line:#2a2a2a;
+    --red:#d81f2b;
+    --red-deep:#7d1017;
+    --white:#f5f5f3;
+    --muted:#9a9894;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  ::selection{background:var(--red);color:#fff;}
+
+  a{color:inherit;}
+
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1.6rem 5vw 0;
+    position:relative;
+    z-index:5;
+  }
+  .topbar .role{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+  .topbar .role .r1{color:var(--red);}
+  .topbar .role .r2{color:var(--muted);display:block;margin-top:.15rem;}
+  .topbar .avail{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    letter-spacing:.1em;
+    color:var(--muted);
+    text-transform:uppercase;
+    display:flex;align-items:center;gap:.4rem;
+  }
+  .avail::after{content:'✦';color:var(--red);}
+
+  .hero{
+    position:relative;
+    padding:1rem 5vw 4rem;
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .giant-word{
+    position:absolute;
+    top:2vh;left:0;right:0;
+    text-align:center;
+    font-family:'Anton',sans-serif;
+    font-size:clamp(5rem, 17vw, 15rem);
+    line-height:1;
+    letter-spacing:.01em;
+    color:transparent;
+    -webkit-text-stroke:1.5px var(--red);
+    background:linear-gradient(180deg, var(--red) 0%, var(--red-deep) 55%, transparent 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    opacity:.9;
+    user-select:none;
+    z-index:0;
+    animation:fade-in-word 1.4s ease both;
+  }
+  @keyframes fade-in-word{from{opacity:0;transform:translateY(-14px);}to{opacity:.9;transform:none;}}
+
+  .hero-grid{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:2rem;
+    align-items:center;
+    margin-top:8vh;
+  }
+
+  .hero-copy .hello{
+    font-family:'JetBrains Mono',monospace;
+    font-style:italic;
+    color:var(--muted);
+    font-size:1.1rem;
+    margin-bottom:.4rem;
+    opacity:0;
+    animation:rise .8s ease .2s forwards;
+  }
+  .hero-copy h1{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    line-height:.98;
+    letter-spacing:.01em;
+    color:var(--white);
+    opacity:0;
+    animation:rise .8s ease .35s forwards;
+  }
+  .hero-copy .title{
+    margin-top:1.1rem;
+    font-weight:700;
+    color:var(--red);
+    font-size:1.05rem;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    opacity:0;
+    animation:rise .8s ease .5s forwards;
+  }
+  .hero-copy .bio{
+    margin-top:1.1rem;
+    max-width:42ch;
+    color:var(--muted);
+    line-height:1.75;
+    font-size:.96rem;
+    opacity:0;
+    animation:rise .8s ease .65s forwards;
+  }
+  .hero-copy .locate{
+    margin-top:1.4rem;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.75rem;
+    letter-spacing:.08em;
+    color:var(--muted);
+    display:flex;align-items:center;gap:.5rem;
+    text-transform:uppercase;
+    opacity:0;
+    animation:rise .8s ease .8s forwards;
+  }
+  .locate .dot{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 8px 2px rgba(216,31,43,.7);}
+
+  @keyframes rise{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+
+  .visual-panel{
+    position:relative;
+    border-radius:6px;
+    overflow:hidden;
+    aspect-ratio:4/5;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(216,31,43,.25), transparent 55%),
+      linear-gradient(155deg, #1c1c1c, #050505 70%);
+    border:1px solid var(--line);
+    opacity:0;
+    animation:rise 1s ease .4s forwards;
+  }
+  .visual-panel svg{width:100%;height:100%;}
+  .visual-panel .tagline-chip{
+    position:absolute;
+    top:1.4rem;right:1.4rem;
+    width:120px;
+    border:1px solid rgba(245,245,243,.25);
+    border-radius:50%;
+    aspect-ratio:1;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;
+    font-size:.68rem;
+    line-height:1.4;
+    color:var(--muted);
+    padding:1rem;
+    backdrop-filter:blur(4px);
+  }
+  .visual-panel .tagline-chip .spark{color:var(--red);font-size:.9rem;display:block;margin-bottom:.3rem;}
+
+  .stat-rail{
+    position:absolute;
+    right:5vw;top:50%;
+    transform:translateY(-50%);
+    display:flex;flex-direction:column;gap:1.5rem;
+    z-index:3;
+  }
+  .stat{
+    display:flex;align-items:baseline;gap:.7rem;
+    border-top:1px solid var(--line);
+    padding-top:.7rem;
+    opacity:0;
+    animation:rise .7s ease forwards;
+  }
+  .stat:nth-child(1){animation-delay:.9s;}
+  .stat:nth-child(2){animation-delay:1.05s;}
+  .stat:nth-child(3){animation-delay:1.2s;}
+  .stat .num{font-family:'Anton',sans-serif;font-size:1.9rem;color:var(--red);}
+  .stat .lbl{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;max-width:8ch;line-height:1.3;}
+
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .stat-rail{position:static;transform:none;flex-direction:row;flex-wrap:wrap;margin-top:2.4rem;}
+    .giant-word{position:static;-webkit-text-stroke:1px var(--red);margin-bottom:-6vw;}
+  }
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in-view{opacity:1;transform:none;}
+
+  section{padding:6.5rem 5vw;position:relative;}
+
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:2.6rem;
+    border-bottom:1px solid var(--line);
+    padding-bottom:1.2rem;
+  }
+  .section-head h2{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(1.6rem,3vw,2.3rem);
+    letter-spacing:.01em;
+  }
+  .section-head .view-all{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.78rem;
+    color:var(--muted);
+    display:flex;align-items:center;gap:.5rem;
+    letter-spacing:.05em;
+  }
+
+  .project-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.6rem;
+  }
+  .project-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    transition:transform .35s ease, border-color .35s ease;
+  }
+  .project-card:hover{transform:translateY(-6px); border-color:var(--red);}
+  .project-thumb{
+    aspect-ratio:4/3;
+    display:flex;align-items:flex-end;
+    padding:1.4rem;
+    position:relative;
+  }
+  .project-thumb svg{position:absolute;inset:0;width:100%;height:100%;opacity:.9;}
+  .project-thumb .thumb-title{
+    position:relative;z-index:2;
+    font-family:'Anton',sans-serif;
+    font-size:1.5rem;
+    line-height:1;
+  }
+  .project-meta{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.1rem 1.3rem;
+    border-top:1px solid var(--line);
+  }
+  .project-meta .idx{
+    font-family:'Anton',sans-serif;
+    color:var(--red);
+    font-size:1.2rem;
+  }
+  .project-meta .name{font-weight:600;font-size:.92rem;}
+  .project-meta .cat{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:.15rem;}
+
+  .lower-grid{
+    display:grid;
+    grid-template-columns:.85fr 1.15fr .8fr;
+    gap:0;
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .lower-col{padding:2.6rem 2.2rem;}
+  .lower-col + .lower-col{border-left:1px solid var(--line);}
+  .lower-col.quote-col{
+    background:linear-gradient(165deg, var(--red-deep), #2a0a0d);
+  }
+
+  .lower-col h3{
+    font-family:'Anton',sans-serif;
+    font-size:1.15rem;
+    letter-spacing:.02em;
+    margin-bottom:1.6rem;
+  }
+
+  .edu-block{margin-bottom:1.8rem;}
+  .edu-block .tag-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.68rem;
+    letter-spacing:.1em;
+    color:var(--red);
+    text-transform:uppercase;
+    margin-bottom:.6rem;
+  }
+  .edu-item{
+    display:flex;justify-content:space-between;
+    padding:.7rem 0;
+    border-bottom:1px solid var(--line);
+    font-size:.88rem;
+    gap:1rem;
+  }
+  .edu-item .school{color:var(--muted);font-size:.78rem;margin-top:.2rem;}
+  .edu-item .yr{font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:.75rem;white-space:nowrap;}
+
+  .skill-tags{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:.6rem;}
+  .skill-tags span{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.7rem;
+    padding:.5rem .8rem;
+    border:1px solid var(--line);
+    border-radius:3px;
+    color:var(--white);
+    letter-spacing:.02em;
+  }
+
+  .process-list{display:flex;flex-direction:column;}
+  .process-item{
+    display:flex;gap:1.2rem;
+    padding:1.1rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .process-item:last-child{border-bottom:none;}
+  .process-item .p-idx{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--red);
+    font-size:.78rem;
+    padding-top:.15rem;
+  }
+  .p-icon{
+    width:34px;height:34px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .p-icon svg{width:16px;height:16px;stroke:var(--red);}
+  .process-item h4{
+    font-size:.85rem;
+    color:var(--red);
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    margin-bottom:.3rem;
+  }
+  .process-item p{font-size:.85rem;color:var(--muted);line-height:1.6;}
+
+  .quote-col{display:flex;flex-direction:column;justify-content:space-between;height:100%;}
+  .quote-mark{font-family:'Anton',sans-serif;font-size:2.4rem;color:rgba(245,245,243,.5);line-height:1;}
+  .quote-col blockquote{
+    font-size:1.15rem;
+    line-height:1.6;
+    margin:1.2rem 0 1.6rem;
+    font-weight:500;
+  }
+  .quote-col .signature{
+    font-family:'JetBrains Mono',monospace;
+    font-style:italic;
+    color:rgba(245,245,243,.85);
+    margin-bottom:2rem;
+  }
+  .quote-col .cta-line{
+    font-family:'Anton',sans-serif;
+    font-size:1.1rem;
+    letter-spacing:.02em;
+  }
+
+  @media (max-width:980px){
+    .project-grid{grid-template-columns:1fr;}
+    .lower-grid{grid-template-columns:1fr;}
+    .lower-col + .lower-col{border-left:none;border-top:1px solid var(--line);}
+  }
+
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:2.4rem;
+    align-items:center;
+  }
+  .contact-grid h2{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(2rem,4vw,2.8rem);
+    line-height:1.05;
+  }
+  .contact-grid p{color:var(--muted);margin-top:1rem;line-height:1.7;max-width:34ch;}
+  .contact-list{display:flex;flex-direction:column;gap:1rem;}
+  .contact-list a{
+    display:flex;align-items:center;gap:.8rem;
+    font-size:.92rem;
+    text-decoration:none;
+    padding-bottom:.7rem;
+    border-bottom:1px solid var(--line);
+    transition:color .25s ease, border-color .25s ease;
+  }
+  .contact-list a:hover{color:var(--red); border-color:var(--red);}
+  .contact-list svg{width:16px;height:16px;stroke:var(--red);flex:0 0 auto;}
+
+  .device-panel{
+    aspect-ratio:4/3;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:linear-gradient(160deg, var(--panel), #050505);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .device-panel svg{width:82%;}
+
+  footer{
+    text-align:center;
+    padding:2.4rem 5vw 3rem;
+    border-top:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    color:var(--muted);
+    letter-spacing:.05em;
+  }
+
+  @media (max-width:820px){
+    .contact-grid{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="role"><span class="r1 mono">ELECTRICAL ENGINEER</span><span class="r2">AUTOMATION &amp; SOFTWARE</span></div>
+  <div class="avail">Open to opportunities</div>
+</div>
+
+<header class="hero">
+  <div class="giant-word" aria-hidden="true">PORTFOLIO</div>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="hello mono">Hello, I'm</p>
+      <h1>MIZAN<br>SHEIKH</h1>
+      <p class="title">Electrical Engineer &amp; Automation Builder</p>
+      <p class="bio">I design circuits and systems that sense their environment and act on it — currently building an automated solar street lighting system, while learning Python and testing myself in hackathons.</p>
+      <p class="locate"><span class="dot"></span> Nagpur, India</p>
+    </div>
+
+    <div class="visual-panel" aria-hidden="true">
+      <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lampGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#d81f2b" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#d81f2b" stop-opacity="0.05"/>
+          </linearGradient>
+        </defs>
+        <line x1="200" y1="480" x2="200" y2="160" stroke="#3a3a3a" stroke-width="4"/>
+        <rect x="170" y="140" width="60" height="26" rx="4" fill="#1c1c1c" stroke="#3a3a3a" stroke-width="2"/>
+        <circle cx="200" cy="150" r="9" fill="#f5cf7a">
+          <animate attributeName="opacity" values="0.4;1;0.4" dur="2.4s" repeatCount="indefinite"/>
+        </circle>
+        <path d="M120 150 Q200 60 280 150" fill="none" stroke="url(#lampGrad)" stroke-width="60" opacity="0.35"/>
+        <g stroke="#333" stroke-width="1.5" opacity="0.6">
+          <line x1="40" y1="420" x2="360" y2="420"/>
+          <line x1="80" y1="420" x2="80" y2="460"/>
+          <line x1="140" y1="420" x2="140" y2="470"/>
+          <line x1="260" y1="420" x2="260" y2="460"/>
+          <line x1="320" y1="420" x2="320" y2="470"/>
+          <circle cx="80" cy="460" r="4" fill="#d81f2b"/>
+          <circle cx="140" cy="470" r="4" fill="#3a3a3a"/>
+          <circle cx="260" cy="460" r="4" fill="#3a3a3a"/>
+          <circle cx="320" cy="470" r="4" fill="#d81f2b"/>
+        </g>
+      </svg>
+      <div class="tagline-chip"><span class="spark">✦</span>Turning circuits into automated systems.</div>
+    </div>
+  </div>
+
+  <div class="stat-rail">
+    <div class="stat"><span class="num">2+</span><span class="lbl">Years of Study</span></div>
+    <div class="stat"><span class="num">1</span><span class="lbl">Flagship Minor Project</span></div>
+    <div class="stat"><span class="num">Multi</span><span class="lbl">Hackathons Entered</span></div>
+  </div>
+</header>
+
+<section id="projects" class="reveal">
+  <div class="section-head">
+    <h2>Selected Work</h2>
+    <span class="view-all">VIEW ALL PROJECTS →</span>
+  </div>
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(160deg,#1c1c1c,#050505);">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="30" r="14" fill="none" stroke="#d81f2b" stroke-width="2"/>
+          <line x1="20" y1="120" x2="20" y2="60" stroke="#3a3a3a" stroke-width="3"/>
+          <rect x="8" y="50" width="24" height="10" fill="#d81f2b" opacity="0.8"/>
+        </svg>
+        <div class="thumb-title">SOLAR<br>LAMP SYS</div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="name">Solar Street Lamps</div>
+          <div class="cat">Automated Lighting System</div>
+        </div>
+        <span class="idx mono">01</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(160deg,#1c1c1c,#050505);">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="160" height="100" rx="4" fill="none" stroke="#d81f2b" stroke-width="2"/>
+          <path d="M40 100 L70 60 L100 90 L140 40" fill="none" stroke="#d81f2b" stroke-width="2"/>
+        </svg>
+        <div class="thumb-title">HACKATHON<br>BUILDS</div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="name">Hackathon Projects</div>
+          <div class="cat">Rapid Python Prototyping</div>
+        </div>
+        <span class="idx mono">02</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(160deg,#1c1c1c,#050505);">
+        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 100 L60 40 L90 100 M100 100 L130 40 L160 100" fill="none" stroke="#d81f2b" stroke-width="2"/>
+        </svg>
+        <div class="thumb-title">CIRCUIT<br>COURSEWORK</div>
+      </div>
+      <div class="project-meta">
+        <div>
+          <div class="name">Core EE Coursework</div>
+          <div class="cat">Circuits &amp; Power Systems</div>
+        </div>
+        <span class="idx mono">03</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="lower-grid">
+
+    <div class="lower-col">
+      <div class="edu-block">
+        <div class="tag-label">Education</div>
+        <div class="edu-item">
+          <div>
+            <div>B.E. Electrical Engineering</div>
+            <div class="school">GH Raisoni College of Engineering, Nagpur</div>
+          </div>
+          <div class="yr">In Progress</div>
+        </div>
+      </div>
+      <div>
+        <div class="tag-label">Skills</div>
+        <div class="skill-tags">
+          <span>CIRCUIT DESIGN</span>
+          <span>EMBEDDED AUTOMATION</span>
+          <span>PYTHON</span>
+          <span>SENSOR SYSTEMS</span>
+          <span>SOLAR ENERGY</span>
+          <span>HACKATHON PROTOTYPING</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lower-col">
+      <h3>Work Process</h3>
+      <div class="process-list">
+        <div class="process-item">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+          <div>
+            <span class="p-idx mono">01</span>
+            <h4>Research</h4>
+            <p>Understanding the problem, constraints, and what the system needs to sense or control.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div>
+          <div>
+            <span class="p-idx mono">02</span>
+            <h4>Design</h4>
+            <p>Planning the circuit, choosing components, and sketching the control logic.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><circle cx="4" cy="13" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="20" cy="14" r="2"/></svg></div>
+          <div>
+            <span class="p-idx mono">03</span>
+            <h4>Prototype</h4>
+            <p>Wiring the build and writing the code that ties sensing to automated action.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M9 12l2 2 4-4M21 12a9 9 0 1 1-9-9"/></svg></div>
+          <div>
+            <span class="p-idx mono">04</span>
+            <h4>Test</h4>
+            <p>Checking the system responds correctly under real light and load conditions.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l16 8-16 8 4-8-4-8z"/></svg></div>
+          <div>
+            <span class="p-idx mono">05</span>
+            <h4>Deliver</h4>
+            <p>Finalizing the build and documenting it for submission or presentation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lower-col quote-col">
+      <div>
+        <div class="quote-mark">"</div>
+        <blockquote>Good engineering isn't just about making something work — it's about making it respond intelligently on its own.</blockquote>
+        <div class="signature">— Mizan</div>
+      </div>
+      <div class="cta-line">LET'S BUILD<br>SOMETHING SMART</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <div class="contact-grid">
+    <div>
+      <h2>LET'S WORK<br>TOGETHER</h2>
+      <p>Open to internships, collaborations, and conversations around electrical automation and software. Reach out any time.</p>
+    </div>
+    <div class="contact-list">
+      <a href="mailto:your.email@example.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> your.email@example.com</a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg> linkedin.com/in/mizansheikh</a>
+      <a href="tel:+910000000000"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.5 2.9.6a2 2 0 0 1 1.7 2z"/></svg> +91 00000 00000</a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Nagpur, Maharashtra, India</a>
+    </div>
+    <div class="device-panel">
+      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="10" width="260" height="150" rx="6" fill="#111" stroke="#333" stroke-width="2"/>
+        <rect x="34" y="24" width="232" height="122" fill="#0a0a0a"/>
+        <text x="46" y="55" fill="#d81f2b" font-family="Anton, sans-serif" font-size="18">SOLAR</text>
+        <text x="46" y="78" fill="#f5f5f3" font-family="Anton, sans-serif" font-size="18">STREET</text>
+        <text x="46" y="101" fill="#f5f5f3" font-family="Anton, sans-serif" font-size="18">LAMPS</text>
+        <circle cx="220" cy="90" r="24" fill="none" stroke="#d81f2b" stroke-width="2"/>
+        <circle cx="220" cy="90" r="6" fill="#f5cf7a"/>
+        <path d="M10 190 L150 160 L290 190 L290 205 L10 205 Z" fill="#050505" stroke="#2a2a2a"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Mizan Sheikh — Electrical Engineering, GH Raisoni College of Engineering, Nagpur</footer>
+
+<script>
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in-view'); }
+      });
+    }, {threshold:0.15});
+    items.forEach(function(el){ obs.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
